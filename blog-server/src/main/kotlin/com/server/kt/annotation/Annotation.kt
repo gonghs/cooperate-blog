@@ -1,4 +1,4 @@
-package com.maple.kotlinspringboot.annotation
+package com.server.kt.annotation
 
 /**
  * 注解类

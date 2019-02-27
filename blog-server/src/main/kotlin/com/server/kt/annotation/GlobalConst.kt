@@ -1,4 +1,4 @@
-package com.maple.kotlinspringboot.annotation
+package com.server.kt.annotation
 
 /**
  * 定义一些全局的常量
