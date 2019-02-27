@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
  */
 
 @SpringBootApplication
-open class SpringBootTest
+open class ServerRun
 
 @RestController
 class ControllerTest {
@@ -25,5 +25,5 @@ class ControllerTest {
 }
 
 fun main(args: Array<String>) {
-    runApplication<SpringBootTest>(*args)
+    runApplication<ServerRun>(*args)
 }
