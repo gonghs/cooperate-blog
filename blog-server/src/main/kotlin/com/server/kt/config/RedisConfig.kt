@@ -33,7 +33,7 @@ open class RedisConfig{
 //        var javaRedisSerializer = JavaRedisSerializer<Any>()
         val fastJsonRedisSerializer = FastJsonRedisSerializer(Any::class.java)
         //配置白名单
-        ParserConfig.getGlobalInstance().addAccept("com.maple.kotlinspringboot.entity.User")
+        ParserConfig.getGlobalInstance().addAccept("com.server")
         //或者直接关闭这个检测
 //        ParserConfig.getGlobalInstance().isAutoTypeSupport = true
         val stringRedisSerializer = StringRedisSerializer()
