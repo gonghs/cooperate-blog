@@ -1,4 +1,4 @@
-package com.server.kt
+package com.server
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
