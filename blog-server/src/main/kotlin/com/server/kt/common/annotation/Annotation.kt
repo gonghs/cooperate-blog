@@ -1,4 +1,4 @@
-package com.server.kt.annotation
+package com.server.kt.common.annotation
 
 /**
  * 注解类

@@ -1,4 +1,4 @@
-package com.server.kt.utils
+package com.server.kt.common.utils
 
 import java.text.SimpleDateFormat
 import java.util.*

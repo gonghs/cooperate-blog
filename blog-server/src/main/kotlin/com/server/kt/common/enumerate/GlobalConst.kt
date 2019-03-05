@@ -1,4 +1,4 @@
-package com.server.kt.annotation
+package com.server.kt.common.enumerate
 
 /**
  * 定义一些全局的常量
@@ -9,4 +9,5 @@ package com.server.kt.annotation
  */
 object GlobalConst{
     const val SESSION_USER_KEY = "currentUser"
+    const val SUCCESS = "1"
 }

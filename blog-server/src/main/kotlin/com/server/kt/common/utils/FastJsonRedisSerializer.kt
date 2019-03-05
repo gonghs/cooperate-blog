@@ -1,4 +1,4 @@
-package com.server.kt.utils
+package com.server.kt.common.utils
 
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.serializer.SerializerFeature

@@ -1,4 +1,4 @@
-package com.server.kt.utils
+package com.server.kt.common.utils
 
 import org.springframework.data.redis.serializer.RedisSerializer
 

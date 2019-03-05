@@ -1,4 +1,4 @@
-package com.server.kt.utils
+package com.server.kt.common.utils
 
 import com.caucho.hessian.io.HessianInput
 import com.caucho.hessian.io.HessianOutput

@@ -2,7 +2,7 @@ package com.server.kt.config
 
 
 import com.alibaba.fastjson.parser.ParserConfig
-import com.server.kt.utils.FastJsonRedisSerializer
+import com.server.kt.common.utils.FastJsonRedisSerializer
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.data.redis.connection.RedisConnectionFactory
@@ -29,8 +29,6 @@ open class RedisConfig{
     open fun redisTemplate(factory: RedisConnectionFactory):RedisTemplate<String,Any> {
         val template = RedisTemplate<String,Any>()
         template.connectionFactory = factory
-//        val hessianRedisSerializer = HessianRedisSerializer(Any::class.java)
-//        var javaRedisSerializer = JavaRedisSerializer<Any>()
         val fastJsonRedisSerializer = FastJsonRedisSerializer(Any::class.java)
         //配置白名单
         ParserConfig.getGlobalInstance().addAccept("com.server")
