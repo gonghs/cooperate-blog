@@ -27,7 +27,7 @@
                 </el-form-item>
                 <el-form-item style="text-align: center">
                   <el-button type="primary" style="margin-right: 100px">注册</el-button>
-                  <el-button type="primary">登陆</el-button>
+                  <el-button type="primary" @click="login">登陆</el-button>
                 </el-form-item>
               </el-form>
             </div>
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+import service from './assets/js/axios/api'
+
 export default {
   name: 'App',
   data () {
@@ -49,6 +51,18 @@ export default {
         rememberPwd: ''
       },
       fullscreen: false
+    }
+  },
+  methods: {
+    login: function () {
+      let _this = this
+      service.get('getUserById', {params: {id: 'aa'}}).success(resp => {
+        _this.$message(
+          {
+            message: `成功了 ${resp}`,
+            type: 'success'
+          })
+      })
     }
   }
 }
