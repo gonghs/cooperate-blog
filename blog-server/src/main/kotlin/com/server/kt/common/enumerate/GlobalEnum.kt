@@ -1,6 +1,7 @@
 package com.server.kt.common.enumerate
 
 import com.server.kt.common.entity.UndefinedException
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 
 /**
  * 全局定义的枚举类
@@ -15,7 +16,9 @@ enum class ErrorCode(val code: String, val msg: String, val clazz: Class<out Exc
      */
     ERROR("999", "该异常未定义", UndefinedException::class.java),
     NOT_FIND("001", "未找到对应的记录", NoSuchElementException::class.java),
-    FIND_NULL("002", "未找到对应的记录", NullPointerException::class.java)
+    FIND_NULL("002", "未找到对应的记录", NullPointerException::class.java),
+    NUMBER_FORMAT("003", "数字转化异常", NumberFormatException::class.java),
+    METHOD_ARGUMENT_TYPE("004", "方法参数有误", MethodArgumentTypeMismatchException::class.java)
     ;
 
     companion object {

@@ -20,10 +20,13 @@ open class CorsConfig{
 
     private fun buildConfig(): CorsConfiguration {
         val corsConfiguration = CorsConfiguration()
-        corsConfiguration.addAllowedOrigin("http://localhost:8080") // 1
-        corsConfiguration.addAllowedOrigin("https://localhost:8080") // 1
-        corsConfiguration.addAllowedHeader("*") // 2
-        corsConfiguration.addAllowedMethod("*") // 3
+        // 允许请求来源
+        corsConfiguration.addAllowedOrigin("http://localhost:8080")
+        corsConfiguration.addAllowedOrigin("https://localhost:8080")
+        // 允许所有请求头
+        corsConfiguration.addAllowedHeader("*")
+        // 允许所有请求方法
+        corsConfiguration.addAllowedMethod("*")
         return corsConfiguration
     }
 
