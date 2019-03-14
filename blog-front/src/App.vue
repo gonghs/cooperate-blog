@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import service from './assets/js/axios/api'
+import $http from './assets/js/axios/api'
 
 export default {
   name: 'App',
@@ -56,13 +56,13 @@ export default {
   methods: {
     login: function () {
       let _this = this
-      service.get('getUserById', {params: {id: 'aa'}}).success(resp => {
+      $http.get('getUserById', {params: {id: 'aa'}}).then(resp => {
         _this.$message(
           {
             message: `成功了 ${resp}`,
             type: 'success'
           })
-      })
+      }).catch(er => { debugger })
     }
   }
 }
