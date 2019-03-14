@@ -1,9 +1,8 @@
 package com.server.kt.db.entity
 
 
+import com.server.kt.common.entity.BaseEntity
 import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
 import javax.persistence.Table
 
 /**
@@ -15,11 +14,12 @@ import javax.persistence.Table
  */
 @Entity
 @Table(name = "user_info")
-class UserInfo {
-    @Id
-    @GeneratedValue
-    val id: Long? = null
+class UserInfo : BaseEntity() {
     val username: String? = null
     val account: String? = null
     val password: String? = null
+
+    override fun toString(): String {
+        return "UserInfo(username=$username, account=$account, password=$password)"
+    }
 }
