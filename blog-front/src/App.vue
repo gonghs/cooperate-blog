@@ -49,8 +49,7 @@ export default {
         account: '',
         password: '',
         rememberPwd: ''
-      },
-      fullscreen: false
+      }
     }
   },
   methods: {
