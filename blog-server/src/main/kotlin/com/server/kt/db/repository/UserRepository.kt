@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository
  * @version 1.0
  * @since 2019-03-05 15:28
  */
-interface UserRepository : JpaRepository<UserInfo, Long> {
+interface UserRepository : JpaRepository<UserInfo, String> {
     fun findByUsername(name: String):UserInfo?
 }

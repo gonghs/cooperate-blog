@@ -16,7 +16,7 @@ import javax.persistence.MappedSuperclass
 open class BaseEntity{
     @Id
     @GeneratedValue
-    var id:Long = 0
+    var id:String = ""
     /**
      * 创建时间
      */

@@ -6,6 +6,7 @@ import com.server.kt.db.repository.UserRepository
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import javax.inject.Inject
+import javax.servlet.http.HttpServletRequest
 
 /**
  * 用户访问控制层
@@ -20,12 +21,12 @@ class UserController {
     lateinit var userRepository: UserRepository
 
     @GetMapping("getUsers")
-    fun getUsers(): ResultObj<List<UserInfo>> {
+    fun getUsers(httpServletRequest: HttpServletRequest): ResultObj<List<UserInfo>> {
         return ResultObj(userRepository.findAll())
     }
 
     @GetMapping("getUserById")
-    fun getUsers(id: Long): ResultObj<UserInfo> {
+    fun getUsers(id: String): ResultObj<UserInfo> {
         return ResultObj(userRepository.findById(id).get())
     }
 }
