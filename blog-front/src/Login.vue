@@ -5,7 +5,7 @@
       <el-header class="head">
         <el-row :gutter="20">
           <el-col :span="4">
-            <Fullscreen></Fullscreen>
+            <fullscreen></fullscreen>
           </el-col>
           <el-col :span="8" :offset="4"><span>后台管理系统</span></el-col>
         </el-row>

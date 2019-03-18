@@ -46,5 +46,6 @@ export default {
     float:left;
     font-size: 30px;
     cursor: pointer;
+    min-width: 150px;
   }
 </style>
