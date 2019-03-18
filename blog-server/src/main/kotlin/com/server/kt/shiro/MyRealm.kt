@@ -12,6 +12,7 @@ import org.apache.shiro.realm.AuthorizingRealm
 import org.apache.shiro.subject.PrincipalCollection
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import javax.inject.Inject
 
 /**
  * 自定义shiro权限验证类
@@ -20,10 +21,8 @@ import org.springframework.stereotype.Component
  * @version 1.0
  * @since 2019-02-16 19:48
  */
-@Component
-class MyShiroRealm : AuthorizingRealm() {
+class MyRealm : AuthorizingRealm() {
 
-    @Autowired(required = false)
     private lateinit var userRepository: UserRepository
 
     /**
@@ -38,7 +37,7 @@ class MyShiroRealm : AuthorizingRealm() {
         } else {
             val simpleAuthenticationInfo = SimpleAuthenticationInfo(name, user.password, getName())
             val session = SecurityUtils.getSubject().session
-            session.setAttribute(GlobalConst.SESSION_USER_KEY,user)
+            session.setAttribute(GlobalConst.SESSION_USER_KEY, user)
             simpleAuthenticationInfo
         }
     }

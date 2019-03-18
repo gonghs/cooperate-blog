@@ -4,6 +4,7 @@
  * @date 2019-3-12
  */
 import axios from 'axios'
+import router from '../../../router'
 import qs from 'qs'
 import { Message } from 'element-ui'
 const $http = axios.create({
@@ -16,9 +17,11 @@ $http.interceptors.request.use(cfg => {
   if (cfg.method === 'post') {
     cfg.data = qs.stringify({...cfg.data})
     cfg.headers['Content-Type'] = 'application/json'
+    cfg.headers['token'] = '1'
   } else {
     cfg.params = {...cfg.params}
     cfg.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    cfg.headers['token'] = '1'
   }
   return cfg
 }, error => {
@@ -31,6 +34,10 @@ $http.interceptors.response.use(resp => {
   if (resp.data.success) {
     return resp.data
   } else {
+    // 如果该异常为未登录则路由跳转至登陆页面
+    if (resp.data.errorCode === '000') {
+      router.go('/login')
+    }
     Message.error(resp.data.data)
     return Promise.reject(resp.data)
   }

@@ -1,4 +1,4 @@
-package com.server.kt.common.entity
+package com.server.kt.common.exception
 
 /**
  * 自定义空异常

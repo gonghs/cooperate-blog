@@ -1,6 +1,7 @@
 package com.server.kt.common.enumerate
 
-import com.server.kt.common.entity.UndefinedException
+import com.server.kt.common.exception.UnLoginException
+import com.server.kt.common.exception.UndefinedException
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 
 /**
@@ -15,6 +16,7 @@ enum class ErrorCode(val code: String, val msg: String, val clazz: Class<out Exc
      * 这个值代表抛出了 未在这个枚举中被定义的异常
      */
     ERROR("999", "该异常未定义", UndefinedException::class.java),
+    UN_LOGIN("000", "未登录", UnLoginException::class.java),
     NOT_FIND("001", "未找到对应的记录", NoSuchElementException::class.java),
     FIND_NULL("002", "未找到对应的记录", NullPointerException::class.java),
     NUMBER_FORMAT("003", "数字转化异常", NumberFormatException::class.java),

@@ -1,6 +1,9 @@
 package com.server.kt.config
 
-import com.server.kt.shiro.MyShiroRealm
+import com.server.kt.db.repository.UserRepository
+import com.server.kt.shiro.MyRealm
+import com.server.kt.shiro.MySessionManager
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher
 import org.apache.shiro.mgt.SecurityManager
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean
@@ -20,34 +23,54 @@ import javax.inject.Inject
 open class ShiroConfig {
 
     @Inject
-    private lateinit var myShiroReam: MyShiroRealm
+    private lateinit var mySessionManager: MySessionManager
 
-//    @Bean
-//    open fun securityManager(): SecurityManager {
-//        val securityManager = DefaultWebSecurityManager()
-//        securityManager.setRealm(myShiroReam)
-//        return securityManager
-//    }
-//
-//    @Bean
-//    open fun shiroFilterFactoryBean(securityManager: SecurityManager): ShiroFilterFactoryBean {
-//        val shiroFilterFactoryBean = ShiroFilterFactoryBean()
-//        shiroFilterFactoryBean.securityManager = securityManager
-//        val map = HashMap<String, String>(2)
-//        map["/logout"] = "logout"
-//        map["/css/**"] = "anon"
-//        map["/js/**"] = "anon"
-//        //对所有用户认证
-//        map["/**"] = "authc"
-//        shiroFilterFactoryBean.loginUrl = "/login"
-//        shiroFilterFactoryBean.successUrl = "/index"
-//        shiroFilterFactoryBean.unauthorizedUrl = "/error"
-//        shiroFilterFactoryBean.filterChainDefinitionMap = map
-//        return shiroFilterFactoryBean
-//    }
-//
-//    @Bean
-//    open fun authorizationAttributeSourceAdvisor(securityManager: SecurityManager):AuthorizationAttributeSourceAdvisor {
-//        return AuthorizationAttributeSourceAdvisor().apply { this.securityManager = securityManager }
-//    }
+    /**
+     * 凭证匹配器
+     */
+    @Bean
+    open fun hashedCredentialsMatcher(): HashedCredentialsMatcher {
+        val hashedCredentialsMatcher = HashedCredentialsMatcher()
+        hashedCredentialsMatcher.hashAlgorithmName = "md5"
+        //进行两次md5加密验证
+        hashedCredentialsMatcher.hashIterations = 2
+        return hashedCredentialsMatcher
+    }
+
+    @Bean
+    open fun securityManager(): SecurityManager {
+        val securityManager = DefaultWebSecurityManager()
+        securityManager.setRealm(myRealm())
+        securityManager.sessionManager = mySessionManager
+        return securityManager
+    }
+
+    @Bean
+    open fun myRealm(): MyRealm {
+        val myRealm = MyRealm()
+        myRealm.credentialsMatcher = (hashedCredentialsMatcher())
+        return myRealm
+    }
+
+    @Bean
+    open fun shiroFilterFactoryBean(securityManager: SecurityManager): ShiroFilterFactoryBean {
+        val shiroFilterFactoryBean = ShiroFilterFactoryBean()
+        shiroFilterFactoryBean.securityManager = securityManager
+        val map = HashMap<String, String>(2)
+        map["/logout"] = "logout"
+        map["/css/**"] = "anon"
+        map["/js/**"] = "anon"
+        //对所有用户认证
+        map["/**"] = "authc"
+        //配置未登录时访问的url
+        shiroFilterFactoryBean.loginUrl = "/unLogin"
+        shiroFilterFactoryBean.unauthorizedUrl = "/error"
+        shiroFilterFactoryBean.filterChainDefinitionMap = map
+        return shiroFilterFactoryBean
+    }
+
+    @Bean
+    open fun authorizationAttributeSourceAdvisor(securityManager: SecurityManager): AuthorizationAttributeSourceAdvisor {
+        return AuthorizationAttributeSourceAdvisor().apply { this.securityManager = securityManager }
+    }
 }

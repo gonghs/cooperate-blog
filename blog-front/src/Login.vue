@@ -1,11 +1,11 @@
 <template>
-  <div id="app">
+  <div>
     <el-container class="page">
       <div class="bg"></div>
       <el-header class="head">
         <el-row :gutter="20">
           <el-col :span="4">
-            <fullscreen></fullscreen>
+            <Fullscreen></Fullscreen>
           </el-col>
           <el-col :span="8" :offset="4"><span>后台管理系统</span></el-col>
         </el-row>
@@ -42,7 +42,7 @@
 import $http from './assets/js/axios/api'
 
 export default {
-  name: 'App',
+  name: 'Login',
   data () {
     return {
       form: {
@@ -61,7 +61,7 @@ export default {
             message: `成功了 ${resp}`,
             type: 'success'
           })
-      }).catch(er => { debugger })
+      })
     }
   }
 }
@@ -115,11 +115,5 @@ export default {
     margin-bottom: 20px;
     font-size: 20px;
     color: #409EFF;
-  }
-
-  .head-tool {
-    float: left;
-    font-size: 30px;
-    cursor: pointer;
   }
 </style>
