@@ -1,10 +1,7 @@
 package com.server.kt.common.utils
 
-import com.alibaba.fastjson.JSONArray
-import com.alibaba.fastjson.JSONObject
 import org.apache.commons.lang3.StringUtils
 import java.security.MessageDigest
-import java.util.*
 
 /**
  * md5加密工具包
