@@ -1,5 +1,7 @@
 package com.server.kt.common.utils
 
+import com.alibaba.fastjson.JSONArray
+import com.alibaba.fastjson.JSONObject
 import org.apache.commons.lang3.StringUtils
 import java.security.MessageDigest
 import java.util.*
@@ -11,13 +13,13 @@ import java.util.*
  * @version 1.0
  * @since 2019-03-15 15:22
  */
-class MdUtils{
+object MdUtils{
     /**
      * 十六进制下数字到字符的映射数组
      */
     private val hexDigits = arrayOf("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F")
 
-    private val defaultCode = "1"
+    private const val defaultCode = "1"
     /**
      * 把inputString加密
      */
@@ -99,12 +101,4 @@ class MdUtils{
         val d2 = n % 16
         return hexDigits[d1] + hexDigits[d2]
     }
-}
-
-fun main() {
-    val body = ""
-    val appId = "app"
-    val secretKey = "yeufjzouriwejraf"
-    val time = Date()
-
 }

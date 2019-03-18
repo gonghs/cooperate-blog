@@ -21,5 +21,5 @@ class UserInfo : BaseEntity() {
 
     override fun toString(): String {
         return "UserInfo(username=$username, account=$account, password=$password)"
-    }
+}
 }
