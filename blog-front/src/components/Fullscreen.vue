@@ -47,5 +47,11 @@ export default {
     font-size: 30px;
     cursor: pointer;
     min-width: 150px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+  @media screen and (max-width: 630px) {
+    .head-tool {display: none}
   }
 </style>
