@@ -38,7 +38,7 @@ $http.interceptors.response.use(resp => {
     if (resp.data.errorCode === '000') {
       router.go('/login')
     }
-    Message.error(resp.data.data)
+    Message.error(resp.data.msg)
     return Promise.reject(resp.data)
   }
 }, error => {

@@ -1,6 +1,7 @@
 package com.server.kt.shiro
 
 import com.server.kt.common.enumerate.GlobalConst
+import com.server.kt.common.utils.RedisUtils
 import com.server.kt.db.repository.UserRepository
 import org.apache.shiro.SecurityUtils
 import org.apache.shiro.authc.AuthenticationInfo
@@ -10,8 +11,6 @@ import org.apache.shiro.authz.AuthorizationInfo
 import org.apache.shiro.authz.SimpleAuthorizationInfo
 import org.apache.shiro.realm.AuthorizingRealm
 import org.apache.shiro.subject.PrincipalCollection
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.stereotype.Component
 import javax.inject.Inject
 
 /**
@@ -23,21 +22,27 @@ import javax.inject.Inject
  */
 class MyRealm : AuthorizingRealm() {
 
+    @Inject
     private lateinit var userRepository: UserRepository
+    @Inject
+    private lateinit var redisUtils: RedisUtils
 
     /**
      * 用户认证
      */
     override fun doGetAuthenticationInfo(token: AuthenticationToken): AuthenticationInfo? {
         token.principal ?: return null
-        val name = token.principal.toString()
-        val user = userRepository.findByUsername(name)
+        val account = token.principal.toString()
+        val user = userRepository.findByAccount(account)
         return if (user == null) {
             null
         } else {
-            val simpleAuthenticationInfo = SimpleAuthenticationInfo(name, user.password, getName())
+            val simpleAuthenticationInfo = SimpleAuthenticationInfo(account, user.password, name)
             val session = SecurityUtils.getSubject().session
+            //存入session
             session.setAttribute(GlobalConst.SESSION_USER_KEY, user)
+            //存入redis缓存
+            redisUtils.setAny(GlobalConst.SESSION_USER_KEY,user)
             simpleAuthenticationInfo
         }
     }
@@ -46,8 +51,8 @@ class MyRealm : AuthorizingRealm() {
      * 权限追加
      */
     override fun doGetAuthorizationInfo(principals: PrincipalCollection): AuthorizationInfo {
-        val name = principals.primaryPrincipal as String
-        val user = userRepository.findByUsername(name)
+        val account = principals.primaryPrincipal as String
+        val user = userRepository.findByAccount(account)
         val simpleAuthorizationInfo = SimpleAuthorizationInfo()
 //        user?.roles?.forEach {
 //            simpleAuthorizationInfo.addRole(it.name)

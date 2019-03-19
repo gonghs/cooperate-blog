@@ -11,24 +11,25 @@ import java.lang.Exception
  * @version 1.0
  * @since 2019-02-24 18:20
  */
-data class ResultObj<T>(val data: T?, val success: Boolean, val errorCode: String) {
+data class ResultObj<T>(val data: T?, val success: Boolean, val errorCode: String, val msg:String) {
     /**
      * 默认为成功
      */
-    constructor(data: T?) : this(data, true, GlobalConst.SUCCESS)
+    constructor(data: T?) : this(data, true, GlobalConst.SUCCESS,GlobalConst.DEFAULT_SUCCESS_MSG)
 
     companion object {
         fun <T> failure(t: T, e: Exception): ResultObj<T> {
-            return ResultObj(t, false, ErrorCode.getErrorCodeByExceptionClass(e).code)
+            val errorCode = ErrorCode.getErrorCodeByExceptionClass(e)
+            return ResultObj(t, false, errorCode.code,errorCode.msg)
         }
 
         fun <T> success(t: T): ResultObj<T> {
-            return ResultObj(t, true, GlobalConst.SUCCESS)
+            return ResultObj(t, true, GlobalConst.SUCCESS,GlobalConst.DEFAULT_SUCCESS_MSG)
         }
 
         fun failure(e: Exception): ResultObj<String> {
             val errorCode = ErrorCode.getErrorCodeByExceptionClass(e)
-            return ResultObj(errorCode.msg, false, errorCode.code)
+            return ResultObj(errorCode.msg, false, errorCode.code,errorCode.msg)
         }
     }
 }

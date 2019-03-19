@@ -2,6 +2,9 @@ package com.server.kt.common.enumerate
 
 import com.server.kt.common.exception.UnLoginException
 import com.server.kt.common.exception.UndefinedException
+import org.apache.shiro.authc.AuthenticationException
+import org.apache.shiro.authc.IncorrectCredentialsException
+import org.apache.shiro.authc.LockedAccountException
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 
 /**
@@ -16,11 +19,18 @@ enum class ErrorCode(val code: String, val msg: String, val clazz: Class<out Exc
      * 这个值代表抛出了 未在这个枚举中被定义的异常
      */
     ERROR("999", "该异常未定义", UndefinedException::class.java),
-    UN_LOGIN("000", "未登录", UnLoginException::class.java),
+    //空相关的异常
     NOT_FIND("001", "未找到对应的记录", NoSuchElementException::class.java),
     FIND_NULL("002", "未找到对应的记录", NullPointerException::class.java),
+
     NUMBER_FORMAT("003", "数字转化异常", NumberFormatException::class.java),
-    METHOD_ARGUMENT_TYPE("004", "方法参数有误", MethodArgumentTypeMismatchException::class.java)
+    METHOD_ARGUMENT_TYPE("004", "方法参数有误", MethodArgumentTypeMismatchException::class.java),
+
+    //权限相关的异常
+    UN_LOGIN("000", "未登录", UnLoginException::class.java),
+    PASSWORD_ERROR("005", "密码错误", IncorrectCredentialsException::class.java),
+    LOCKED_ACCOUNT("006", "用户已被冻结", LockedAccountException ::class.java),
+    USER_NOT_EXIST("007", "用户不存在", AuthenticationException ::class.java)
     ;
 
     companion object {

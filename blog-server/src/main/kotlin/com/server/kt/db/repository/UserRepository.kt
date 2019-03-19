@@ -12,4 +12,5 @@ import org.springframework.data.jpa.repository.JpaRepository
  */
 interface UserRepository : JpaRepository<UserInfo, String> {
     fun findByUsername(name: String):UserInfo?
+    fun findByAccount(account: String):UserInfo?
 }
