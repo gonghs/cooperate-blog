@@ -51,6 +51,7 @@ class AuthController {
     fun logout(): ResultObj<String> {
         // 使用权限管理工具进行用户的退出，注销登录
         SecurityUtils.getSubject().logout()
+        redisUtils.delete(GlobalConst.SESSION_USER_KEY)
         // 直接抛出未登陆异常,让前端跳转登陆页
         throw UnLoginException()
     }

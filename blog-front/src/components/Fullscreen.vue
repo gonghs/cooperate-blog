@@ -50,6 +50,7 @@ export default {
     position: absolute;
     top: 10px;
     left: 10px;
+    color: #409EFF;
   }
   @media screen and (max-width: 630px) {
     .head-tool {display: none}
