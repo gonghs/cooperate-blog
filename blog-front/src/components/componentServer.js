@@ -3,8 +3,10 @@
  * @author maple
  * @date 2019-3-10
  */
-import Fullscreen from './Fullscreen.vue'
-const components = [Fullscreen]
+import Fullscreen from './bg/Fullscreen.vue'
+import Head from './Head.vue'
+import Background from './bg/Background.vue'
+const components = [Fullscreen, Head, Background]
 
 const install = (Vue) => {
   components.forEach(component => {
@@ -14,5 +16,7 @@ const install = (Vue) => {
 
 export default {
   install,
-  Fullscreen
+  Fullscreen,
+  Head,
+  Background
 }

@@ -15,6 +15,7 @@ Vue.use(components)
 router.beforeEach((to, from, next) => {
   // 判断该路由是否需要登录权限
   const auth = to.meta.auth
+  debugger
   if (auth) {
     if (window.localStorage.getItem('token')) {
       next()
