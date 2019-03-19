@@ -11,7 +11,10 @@ import org.apache.shiro.authz.AuthorizationInfo
 import org.apache.shiro.authz.SimpleAuthorizationInfo
 import org.apache.shiro.realm.AuthorizingRealm
 import org.apache.shiro.subject.PrincipalCollection
+import org.apache.shiro.util.ByteSource
 import javax.inject.Inject
+import org.apache.tomcat.jni.User.username
+
 
 /**
  * 自定义shiro权限验证类
@@ -38,11 +41,6 @@ class MyRealm : AuthorizingRealm() {
             null
         } else {
             val simpleAuthenticationInfo = SimpleAuthenticationInfo(account, user.password, name)
-            val session = SecurityUtils.getSubject().session
-            //存入session
-            session.setAttribute(GlobalConst.SESSION_USER_KEY, user)
-            //存入redis缓存
-            redisUtils.setAny(GlobalConst.SESSION_USER_KEY,user)
             simpleAuthenticationInfo
         }
     }

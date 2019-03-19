@@ -5,22 +5,23 @@
  */
 import axios from 'axios'
 import router from '../../../router'
-import qs from 'qs'
 import { Message } from 'element-ui'
 const $http = axios.create({
   baseURL: 'http://localhost:9002/',
-  timeout: 5000
+  timeout: 500000
 })
 
 // get请求默认采用表单提交,post请求默认采用json提交
 $http.interceptors.request.use(cfg => {
   if (cfg.method === 'post') {
-    cfg.data = qs.stringify({...cfg.data})
     cfg.headers['Content-Type'] = 'application/json'
-    cfg.headers['token'] = '1'
   } else {
     cfg.params = {...cfg.params}
-    cfg.headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    cfg.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8'
+  }
+  if (localStorage.getItem('token')) {
+    cfg.headers['token'] = localStorage.getItem('token')
+  } else {
     cfg.headers['token'] = '1'
   }
   return cfg

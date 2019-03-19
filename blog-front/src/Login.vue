@@ -1,20 +1,18 @@
 <template>
   <div>
     <el-container class="page">
-      <div class="bg"></div>
       <el-header class="head">
-        <fullscreen></fullscreen>
         <span style="min-width: 300px">后台管理系统</span>
       </el-header>
       <el-main class="main">
         <div class="login-form">
           <div class="form-head"><span>用户登陆</span></div>
-          <el-form ref="form" :model="form" label-width="75px" style="padding-right: 10px">
-            <el-form-item label="账号:">
+          <el-form ref="form" :model="form" :rules="rules" label-width="75px" style="padding-right: 10px">
+            <el-form-item label="账号:" prop="account" required>
               <el-input v-model="form.account" placeholder="账号"></el-input>
             </el-form-item>
-            <el-form-item label="密码:">
-              <el-input v-model="form.password" placeholder="密码"></el-input>
+            <el-form-item label="密码:" prop="password" required>
+              <el-input  type="password" v-model="form.password" placeholder="密码"></el-input>
             </el-form-item>
             <el-form-item label="记住密码:">
               <el-switch v-model="form.rememberPwd"></el-switch>
@@ -40,19 +38,34 @@ export default {
       form: {
         account: '',
         password: '',
-        rememberPwd: ''
+        rememberPwd: false
+      },
+      rules: {
+        account: [
+          { required: true, message: '请输入账号', trigger: 'blur' }
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' }
+        ]
       }
     }
   },
   methods: {
     login: function () {
       let _this = this
-      $http.get('getUserById', {params: {id: 'aa'}}).then(resp => {
-        _this.$message(
-          {
-            message: `成功了 ${resp}`,
-            type: 'success'
+      this.$refs['form'].validate((valid) => {
+        if (valid) {
+          $http.post('login', {..._this.form}).then(resp => {
+            localStorage.setItem('token', resp.data)
+            _this.$message({
+              message: resp.msg,
+              type: 'success'
+            })
+            _this.$router.push('index')
           })
+        } else {
+          return false
+        }
       })
     }
   }

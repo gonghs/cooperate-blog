@@ -5,6 +5,7 @@ import com.server.kt.common.exception.UndefinedException
 import org.apache.shiro.authc.AuthenticationException
 import org.apache.shiro.authc.IncorrectCredentialsException
 import org.apache.shiro.authc.LockedAccountException
+import org.apache.shiro.authc.UnknownAccountException
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException
 
 /**
@@ -30,7 +31,8 @@ enum class ErrorCode(val code: String, val msg: String, val clazz: Class<out Exc
     UN_LOGIN("000", "未登录", UnLoginException::class.java),
     PASSWORD_ERROR("005", "密码错误", IncorrectCredentialsException::class.java),
     LOCKED_ACCOUNT("006", "用户已被冻结", LockedAccountException ::class.java),
-    USER_NOT_EXIST("007", "用户不存在", AuthenticationException ::class.java)
+    UNKNOWN_ACCOUNT("007", "用户不存在", UnknownAccountException ::class.java),
+    USER_NOT_EXIST("008", "用户不存在", AuthenticationException ::class.java)
     ;
 
     companion object {

@@ -10,7 +10,7 @@ import java.security.MessageDigest
  * @version 1.0
  * @since 2019-03-15 15:22
  */
-object MdUtils{
+object MdUtils {
     /**
      * 十六进制下数字到字符的映射数组
      */
@@ -20,8 +20,19 @@ object MdUtils{
     /**
      * 把inputString加密
      */
-    fun md5(inputStr: String): String? {
+    fun md5(inputStr: String): String {
         return encodeByMD5(inputStr)
+    }
+
+    /**
+     * 把inputString加密  加密次数
+     */
+    fun md5(inputStr: String, time: Int): String {
+        return if (time <= 1) {
+            encodeByMD5(inputStr)
+        } else {
+            md5(encodeByMD5(inputStr), time - 1)
+        }
     }
 
     /**
@@ -55,21 +66,18 @@ object MdUtils{
     /**
      * 对字符串进行MD5编码
      */
-    private fun encodeByMD5(originString: String?): String? {
-        if (originString != null) {
-            try {
-                //创建具有指定算法名称的信息摘要
-                val md5 = MessageDigest.getInstance("MD5")
-                //使用指定的字节数组对摘要进行最后更新，然后完成摘要计算
-                val results = md5.digest(originString.toByteArray())
-                //将得到的字节数组变成字符串返回
-                return byteArrayToHexString(results)
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-
+    private fun encodeByMD5(originString: String): String {
+        try {
+            //创建具有指定算法名称的信息摘要
+            val md5 = MessageDigest.getInstance("MD5")
+            //使用指定的字节数组对摘要进行最后更新，然后完成摘要计算
+            val results = md5.digest(originString.toByteArray())
+            //将得到的字节数组变成字符串返回
+            return byteArrayToHexString(results)
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return ""
         }
-        return null
     }
 
     /**

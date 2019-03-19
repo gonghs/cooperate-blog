@@ -48,7 +48,7 @@ open class ShiroConfig {
     @Bean
     open fun myRealm(): MyRealm {
         val myRealm = MyRealm()
-        myRealm.credentialsMatcher = (hashedCredentialsMatcher())
+//        myRealm.credentialsMatcher = (hashedCredentialsMatcher())
         return myRealm
     }
 
@@ -58,6 +58,7 @@ open class ShiroConfig {
         shiroFilterFactoryBean.securityManager = securityManager
         val map = HashMap<String, String>(2)
         map["/logout"] = "logout"
+        map["/login"] = "anon"
         map["/css/**"] = "anon"
         map["/js/**"] = "anon"
         //对所有用户认证
