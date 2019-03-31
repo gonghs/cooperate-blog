@@ -39,10 +39,12 @@ class AuthController {
 
     @PostMapping("/login")
     fun login(@RequestBody userInfo: UserInfo): ResultObj<String> {
+        userInfo.account!!
+        userInfo.password!!
         val subject = SecurityUtils.getSubject()
-        val token = UsernamePasswordToken(userInfo.account, userInfo.password!!.encodeByMD5(2))
+        val token = UsernamePasswordToken(userInfo.account, userInfo.password.encodeByMD5(2))
         subject.login(token)
-        val user = userRepository.findByAccount(userInfo.account!!)
+        val user = userRepository.findByAccount(userInfo.account)
         //存入redis缓存
         redisUtils.setAny(GlobalConst.SESSION_USER_KEY, user!!)
         return ResultObj.success(subject.session.id.toString())
