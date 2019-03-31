@@ -22,7 +22,7 @@ data class ResultObj<T>(val data: T?, val success: Boolean, val errorCode: Strin
     companion object {
         fun <T> failure(t: T, e: Exception): ResultObj<T> {
             val errorCode = ErrorCode.getErrorCodeByExceptionClass(e)
-            return ResultObj(t, false, errorCode.getErrorCode(), errorCode.getErrorMsg())
+            return ResultObj(t, errorCode.getErrorCode(), errorCode.getErrorMsg())
         }
 
         fun <T> success(t: T): ResultObj<T> {
@@ -35,7 +35,7 @@ data class ResultObj<T>(val data: T?, val success: Boolean, val errorCode: Strin
 
         fun failure(e: Exception): ResultObj<String> {
             val errorCode = ErrorCode.getErrorCodeByExceptionClass(e)
-            return ResultObj(errorCode.getErrorMsg(), false, errorCode.getErrorCode(), errorCode.getErrorMsg())
+            return ResultObj(errorCode.getErrorMsg(), errorCode.getErrorCode(), errorCode.getErrorMsg())
         }
     }
 }
