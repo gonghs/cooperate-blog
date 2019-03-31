@@ -34,3 +34,5 @@ open class BaseEntity{
      */
     var modifyUserId:Long = 0
 }
+
+data class ValidErrorEntity(val errorField:String,val errorMsg:String?)
