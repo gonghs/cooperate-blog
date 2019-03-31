@@ -11,7 +11,7 @@ import java.lang.Exception
  * @version 1.0
  * @since 2019-02-24 18:20
  */
-data class ResultObj<T>(val data: T?, val success: Boolean, val errorCode: String, val msg: String) {
+class ResultObj<T> private constructor(val data: T?, val success: Boolean, val errorCode: String, val msg: String) {
     /**
      * 默认为成功
      */
