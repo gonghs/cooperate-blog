@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.multipart.MultipartFile
 
 /**
  * 测试运行类
@@ -20,7 +21,7 @@ open class ServerRun
 class ControllerTest {
     @GetMapping("/")
     fun hello(): String {
-        return "hello"
+        return "success"
     }
 }
 

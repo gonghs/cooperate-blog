@@ -5,6 +5,7 @@ import com.server.kt.common.enumerate.GlobalConst
 import com.server.kt.common.exception.UnLoginException
 import com.server.kt.common.utils.MdUtils
 import com.server.kt.common.utils.RedisUtils
+import com.server.kt.common.utils.encodeByMD5
 import com.server.kt.db.entity.UserInfo
 import com.server.kt.db.repository.UserRepository
 import org.apache.shiro.SecurityUtils
@@ -39,7 +40,7 @@ class AuthController {
     @PostMapping("/login")
     fun login(@RequestBody userInfo: UserInfo): ResultObj<String> {
         val subject = SecurityUtils.getSubject()
-        val token = UsernamePasswordToken(userInfo.account, MdUtils.md5(userInfo.password!!, 2))
+        val token = UsernamePasswordToken(userInfo.account, userInfo.password!!.encodeByMD5(2))
         subject.login(token)
         val user = userRepository.findByAccount(userInfo.account!!)
         //存入redis缓存

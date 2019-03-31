@@ -67,16 +67,16 @@ object MdUtils {
      * 对字符串进行MD5编码
      */
     private fun encodeByMD5(originString: String): String {
-        try {
+        return try {
             //创建具有指定算法名称的信息摘要
             val md5 = MessageDigest.getInstance("MD5")
             //使用指定的字节数组对摘要进行最后更新，然后完成摘要计算
             val results = md5.digest(originString.toByteArray())
             //将得到的字节数组变成字符串返回
-            return byteArrayToHexString(results)
+            byteArrayToHexString(results)
         } catch (e: Exception) {
             e.printStackTrace()
-            return ""
+            ""
         }
     }
 
@@ -107,3 +107,12 @@ object MdUtils {
         return hexDigits[d1] + hexDigits[d2]
     }
 }
+
+/**
+ * 将字符串转化为md5格式
+ */
+fun String.encodeByMD5():String = MdUtils.md5(this)
+/**
+ * 将字符串转化为md5格式 指定次数
+ */
+fun String.encodeByMD5(time: Int):String = MdUtils.md5(this,time)
