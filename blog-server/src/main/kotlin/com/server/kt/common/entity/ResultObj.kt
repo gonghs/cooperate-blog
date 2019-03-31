@@ -26,7 +26,7 @@ data class ResultObj<T>(val data: T?, val success: Boolean, val errorCode: Strin
         }
 
         fun <T> success(t: T): ResultObj<T> {
-            return ResultObj(t, true, GlobalConst.SUCCESS, GlobalConst.DEFAULT_SUCCESS_MSG)
+            return ResultObj(t)
         }
 
         fun <T> failure(data: T?, errorCode: String, msg: String): ResultObj<T> {
