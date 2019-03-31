@@ -28,7 +28,7 @@ class GlobalExceptionHandler {
         if (e is BindException) {
             val msg = e.fieldError?.defaultMessage ?: ""
             //将校验失败字段放入返回数据中 失败信息为最后一个失败字段的信息
-            ResultObj(
+            ResultObj.failure(
                 e.fieldErrors.map { ValidErrorEntity(it.field, it.defaultMessage) },
                 ErrorCode.VALID_ERROR_CODE,
                 msg

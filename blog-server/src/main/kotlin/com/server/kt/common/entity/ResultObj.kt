@@ -15,9 +15,9 @@ data class ResultObj<T>(val data: T?, val success: Boolean, val errorCode: Strin
     /**
      * 默认为成功
      */
-    constructor(data: T?) : this(data, true, GlobalConst.SUCCESS, GlobalConst.DEFAULT_SUCCESS_MSG)
+    private constructor(data: T?) : this(data, true, GlobalConst.SUCCESS, GlobalConst.DEFAULT_SUCCESS_MSG)
 
-    constructor(data: T?, errorCode: String, msg: String) : this(data, false, errorCode, msg)
+    private constructor(data: T?, errorCode: String, msg: String) : this(data, false, errorCode, msg)
 
     companion object {
         fun <T> failure(t: T, e: Exception): ResultObj<T> {
@@ -29,9 +29,8 @@ data class ResultObj<T>(val data: T?, val success: Boolean, val errorCode: Strin
             return ResultObj(t, true, GlobalConst.SUCCESS, GlobalConst.DEFAULT_SUCCESS_MSG)
         }
 
-        fun <T> failure(t: T, msg: String, e: Exception): ResultObj<T> {
-            val errorCode = ErrorCode.getErrorCodeByExceptionClass(e)
-            return ResultObj(t, false, errorCode.getErrorCode(), msg)
+        fun <T> failure(data: T?, errorCode: String, msg: String): ResultObj<T> {
+            return ResultObj(data, errorCode, msg)
         }
 
         fun failure(e: Exception): ResultObj<String> {

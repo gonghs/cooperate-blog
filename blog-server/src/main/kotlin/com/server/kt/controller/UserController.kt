@@ -22,11 +22,11 @@ class UserController {
 
     @GetMapping("getUsers")
     fun getUsers(httpServletRequest: HttpServletRequest): ResultObj<List<UserInfo>> {
-        return ResultObj(userRepository.findAll())
+        return ResultObj.success(userRepository.findAll())
     }
 
     @GetMapping("getUserById")
     fun getUsers(id: String): ResultObj<UserInfo> {
-        return ResultObj(userRepository.findById(id).get())
+        return ResultObj.success(userRepository.findById(id).get())
     }
 }
