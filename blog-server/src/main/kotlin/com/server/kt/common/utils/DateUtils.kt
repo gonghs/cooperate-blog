@@ -14,9 +14,7 @@ object DateUtils {
     val defaultSimpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     val simpleDateFormat = SimpleDateFormat()
 
-    fun format2Str(date: Date):String {
-        return defaultSimpleDateFormat.format(date)
-    }
+    fun format2Str(date: Date):String = defaultSimpleDateFormat.format(date)
 }
 
 //将工具类使用拓展方式写入Date类中
@@ -31,6 +29,4 @@ fun Date.format2Str(pattern:String):String{
 /**
  * 使用默认方式格式化时间字符串
  */
-fun Date.format2Str():String{
-    return DateUtils.defaultSimpleDateFormat.format(this)
-}
+fun Date.format2Str():String = DateUtils.defaultSimpleDateFormat.format(this)

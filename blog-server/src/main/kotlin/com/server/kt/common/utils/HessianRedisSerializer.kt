@@ -11,9 +11,7 @@ import org.springframework.data.redis.serializer.RedisSerializer
  */
 class HessianRedisSerializer<T>(private var clazz: Class<T>) : RedisSerializer<T>{
 
-    override fun serialize(t: T?): ByteArray? {
-        return SerializeUtils.hessianSerialize(t)
-    }
+    override fun serialize(t: T?): ByteArray? = SerializeUtils.hessianSerialize(t)
 
     override fun deserialize(bt: ByteArray?): T? {
         if(bt == null || bt.isEmpty()) return null

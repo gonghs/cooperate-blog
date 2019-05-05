@@ -11,9 +11,7 @@ import org.springframework.data.redis.serializer.RedisSerializer
  */
 class JavaRedisSerializer<T> : RedisSerializer<T>{
 
-    override fun serialize(t: T?): ByteArray? {
-        return SerializeUtils.javaSerialize(t)
-    }
+    override fun serialize(t: T?): ByteArray? = SerializeUtils.javaSerialize(t)
 
     override fun deserialize(bt: ByteArray?): T? {
         if(bt == null || bt.isEmpty()) return null

@@ -49,9 +49,7 @@ enum class ErrorCode(private val code: String, private val msg: String, val claz
         //校验相关的异常只需要定义一个错误码
         const val VALID_ERROR_CODE:String = "998"
 
-        fun getErrorCodeByExceptionClass(e: Exception):IErrorCode {
-            return ErrorCode.values().filter { it.clazz === e::class.java }.getOrElse(0) { ERROR }
-        }
+        fun getErrorCodeByExceptionClass(e: Exception):IErrorCode = values().filter { it.clazz === e::class.java }.getOrElse(0) { ERROR }
     }
 }
 

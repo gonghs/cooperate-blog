@@ -20,14 +20,12 @@ object MdUtils {
     /**
      * 把inputString加密
      */
-    fun md5(inputStr: String): String {
-        return encodeByMD5(inputStr)
-    }
+    fun md5(inputStr: String): String = encodeByMD5(inputStr)
 
     /**
      * 把inputString加密  加密次数
      */
-    fun md5(inputStr: String, time: Int): String {
+    fun md5(inputStr: String, time: Int = 1): String {
         return if (time <= 1) {
             encodeByMD5(inputStr)
         } else {
@@ -59,9 +57,7 @@ object MdUtils {
      * @param inputString 输入的字符串
      * @return 验证结果，boolean类型
      */
-    fun authenticatePassword(password: String, inputString: String): Boolean {
-        return password == encodeByMD5(inputString)
-    }
+    fun authenticatePassword(password: String, inputString: String): Boolean = password == encodeByMD5(inputString)
 
     /**
      * 对字符串进行MD5编码

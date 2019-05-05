@@ -25,13 +25,9 @@ class ResultObj<T> private constructor(val data: T?, val success: Boolean, val e
             return ResultObj(t, errorCode.getErrorCode(), errorCode.getErrorMsg())
         }
 
-        fun <T> success(t: T): ResultObj<T> {
-            return ResultObj(t)
-        }
+        fun <T> success(t: T): ResultObj<T> = ResultObj(t)
 
-        fun <T> failure(data: T?, errorCode: String, msg: String): ResultObj<T> {
-            return ResultObj(data, errorCode, msg)
-        }
+        fun <T> failure(data: T?, errorCode: String, msg: String): ResultObj<T> = ResultObj(data, errorCode, msg)
 
         fun failure(e: Exception): ResultObj<String> {
             val errorCode = ErrorCode.getErrorCodeByExceptionClass(e)

@@ -24,10 +24,8 @@ class RedisUtils {
      * @param key 键
      * @return any 值对象
      */
-    fun <T : Any> getT(key: String):T? {
-        @Suppress("UNCHECKED_CAST")
-        return  redisTemplate.opsForValue().get(key) as? T
-    }
+    @Suppress("UNCHECKED_CAST")
+    fun <T : Any> getT(key: String):T? = redisTemplate.opsForValue().get(key) as? T
 
     /**
      * 获取long值
@@ -56,18 +54,15 @@ class RedisUtils {
      * @param key 键
      * @return any 值对象
      */
-    fun getInt(key: String):Int?{
-        val value = getAny(key)
-        return when(value){
-            is Byte -> value.toInt()
-            is Int -> value
-            is Long -> value.toInt()
-            is Float -> value.toInt()
-            is Double -> value.toInt()
-            is Char -> value.toInt()
-            is String -> value.toIntOrNull()
-            else -> null
-        }
+    fun getInt(key: String):Int? = when(val value = getAny(key)){
+        is Byte -> value.toInt()
+        is Int -> value
+        is Long -> value.toInt()
+        is Float -> value.toInt()
+        is Double -> value.toInt()
+        is Char -> value.toInt()
+        is String -> value.toIntOrNull()
+        else -> null
     }
 
     /**
@@ -77,9 +72,7 @@ class RedisUtils {
      * @param value 值对象
      * @return Boolean 是否成功
      */
-    fun setAny(key:String,value:Any) {
-        redisTemplate.opsForValue().set(key,value)
-    }
+    fun setAny(key:String,value:Any) = redisTemplate.opsForValue().set(key,value)
 
     /**
      * 删除普通缓存对象
@@ -87,9 +80,7 @@ class RedisUtils {
      * @param key 键
      * @return Boolean 是否成功
      */
-    fun delete(key:String):Boolean {
-        return redisTemplate.delete(key)
-    }
+    fun delete(key:String):Boolean = redisTemplate.delete(key)
 
     /**
      * 获取普通缓存对象
@@ -97,7 +88,5 @@ class RedisUtils {
      * @param key 键
      * @return any 值对象
      */
-    private fun getAny(key: String):Any? {
-        return redisTemplate.opsForValue().get(key)
-    }
+    private fun getAny(key: String):Any? = redisTemplate.opsForValue().get(key)
 }
